@@ -23,8 +23,8 @@ In order to robust against outliers, I implemented RANSAC code.
 
 
 # 5. Result
-## 1. MSE
-I used MSE for evaluation  
+## 1. RMSE
+I used RMSE for evaluation  
 ```C++
 while
 {
@@ -38,15 +38,14 @@ while
 gt_error /= len;
 pred_error /= len;
 ```
-Error of GT H Matrix : 63.7616  
-Error of Predicted H Matrix : 63.55
+RMSE of GT H Matrix : 63.7616  
+RMSE of Predicted H Matrix : 63.55
 
 ## 2. Visualization
 White : GT  
 Red : Given H matrix  
 Green : Predicted H matrix  
-![image](https://user-images.githubusercontent.com/58837749/187371359-1f926fe7-5018-4eb5-af81-43fb261f279b.png)
-
+![image](https://user-images.githubusercontent.com/58837749/187387673-60e3c692-eaa2-4b8b-975f-7009852d532f.png)
 
 
 # 6. Limitations

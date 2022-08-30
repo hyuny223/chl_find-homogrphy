@@ -56,7 +56,7 @@ Eigen::MatrixXd compute2D(const Eigen::MatrixXd& C, const Eigen::MatrixXd& point
 
 }
 
-void computeMSE(const std::vector<std::vector<double>> values, const Eigen::MatrixXd& gt, const Eigen::MatrixXd& pred)
+void computeRMSE(const std::vector<std::vector<double>> values, const Eigen::MatrixXd& gt, const Eigen::MatrixXd& pred)
 {
     std::size_t len = values.size();
 
@@ -72,6 +72,6 @@ void computeMSE(const std::vector<std::vector<double>> values, const Eigen::Matr
         predError += std::sqrt((val_x - pred_x)*(val_x - pred_x) + (val_y - pred_y)*(val_y - pred_y));
     }
 
-    std::cout << "Error of GT H Matrix : " << gtError / len << std::endl;
-    std::cout << "Error of Predicted H Matrix : " << predError / len << std::endl;
+    std::cout << "RMSE of GT H Matrix : " << gtError / len << std::endl;
+    std::cout << "RMSE of Predicted H Matrix : " << predError / len << std::endl;
 }
