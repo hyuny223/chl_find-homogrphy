@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 #include "eigen-3.4.0/Eigen/Dense"
 #include "eigen-3.4.0/Eigen/SVD"
@@ -53,4 +54,24 @@ Eigen::MatrixXd compute2D(const Eigen::MatrixXd& C, const Eigen::MatrixXd& point
 
     return result;
 
+}
+
+void computeMSE(const std::vector<std::vector<double>> values, const Eigen::MatrixXd& gt, const Eigen::MatrixXd& pred)
+{
+    std::size_t len = values.size();
+
+    double gtError{0}, predError{0};
+
+    for(int i = 0; i < len; ++i)
+    {
+        auto val_x = static_cast<int>(values[i][0]), val_y = static_cast<int>(values[i][1]);
+        auto gt_x = static_cast<int>(std::round(gt(i,0))), gt_y = static_cast<int>(std::round(gt(i,1)));
+        auto pred_x = static_cast<int>(std::round(pred(i,0))), pred_y = static_cast<int>(std::round(pred(i,1)));
+
+        gtError += std::sqrt((val_x - gt_x)*(val_x - gt_x) + (val_y - gt_y)*(val_y - gt_y));
+        predError += std::sqrt((val_x - pred_x)*(val_x - pred_x) + (val_y - pred_y)*(val_y - pred_y));
+    }
+
+    std::cout << "Error of GT H Matrix : " << gtError / len << std::endl;
+    std::cout << "Error of Predicted H Matrix : " << predError / len << std::endl;
 }

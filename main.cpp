@@ -42,6 +42,7 @@ int main(int argc, char** argv)
     Eigen::MatrixXd pred = compute2D(C, point3D);
     Eigen::MatrixXd gt = compute2D(out, point3D);
 
+    computeMSE(values, gt, pred);
     visualizer(values, gt, pred);
 
 }
