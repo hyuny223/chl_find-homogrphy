@@ -27,22 +27,29 @@ void Linear::run(std::mt19937& gen, const double& margin)
         }
     }
 
-    auto [gradient, intercept] = computeLinearParameter(x1,y1,x2,y2);
+    auto [gradient, intercept] = computeLinearParameter(x1,y1,x2,y2); // 기울기, y절편
 
     double sumRes{0};
+    std::vector<int> inliers;
+    inliers.reserve(mDataNum);
 
     for(int row = 0; row < mDataNum; ++row)
     {
         double x = mDatas[row][0], y = mDatas[row][1];
-        double res = std::abs(gradient * x - y + intercept) / std::sqrt(gradient*gradient + 1);
+        double res = std::abs(gradient * x - y + intercept) / std::sqrt(gradient*gradient + 1); // 점과 직선과의 거리
 
-        res = res < margin ? 0 : res;
+        if(res < margin)
+        {
+            res = 0;
+            inliers.emplace_back(row);
+        }
+
         sumRes += res;
     }
-
     mGradient = gradient;
     mIntercept = intercept;
     mResidual = sumRes;
+    mInliers = inliers;
 }
 
 std::tuple<double,double> Linear::computeLinearParameter(const double& x1, const double& y1, const double& x2, const double& y2)
@@ -64,4 +71,9 @@ double Linear::getResidual()
 std::tuple<double, double> Linear::getParameter()
 {
     return std::tuple<double, double>(mGradient, mIntercept);
+}
+
+std::vector<int> Linear::getInliers()
+{
+    return mInliers;
 }

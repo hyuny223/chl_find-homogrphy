@@ -7,7 +7,7 @@
 
 void visualizer(std::vector<std::vector<double>> values, const Eigen::MatrixXd gt, Eigen::MatrixXd pred)
 {
-    cv::Mat board = cv::Mat::zeros(cv::Size(2000,1000), CV_8UC3);
+    cv::Mat board = cv::Mat(cv::Size(2000,1000), CV_8UC3, cv::Scalar::all(255));
 
     std::size_t len = values.size();
 
@@ -17,9 +17,9 @@ void visualizer(std::vector<std::vector<double>> values, const Eigen::MatrixXd g
         auto gt_x = static_cast<int>(std::round(gt(i,0))), gt_y = static_cast<int>(std::round(gt(i,1)));
         auto pred_x = static_cast<int>(std::round(pred(i,0))), pred_y = static_cast<int>(std::round(pred(i,1)));
 
-        cv::circle(board, cv::Point(val_x, val_y), 10, cv::Scalar(255, 255, 255));
-        cv::circle(board, cv::Point(gt_x, gt_y), 10, cv::Scalar(0, 0, 255));
-        cv::circle(board, cv::Point(pred_x, pred_y), 10, cv::Scalar(0, 255, 0));
+        cv::circle(board, cv::Point(val_x, val_y), 10, cv::Scalar(0, 0, 0),2);
+        cv::circle(board, cv::Point(gt_x, gt_y), 10, cv::Scalar(0, 0, 255),2);
+        cv::circle(board, cv::Point(pred_x, pred_y), 10, cv::Scalar(0, 255, 0),2);
     }
     cv::imshow("result",board);
     while(1)

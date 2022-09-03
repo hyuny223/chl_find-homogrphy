@@ -17,6 +17,7 @@ class RANSAC
         {
             std::random_device rd;
             std::mt19937 gen(rd());
+            MODEL candidate;
 
             for(int iter=0; iter < mIteration; ++iter)
             {
@@ -24,13 +25,13 @@ class RANSAC
                 {
                     if(mBestModelRes < mThreshold)
                     {
-
+                        std::cout << "model!" << std::endl;
                         return mModel;
                     }
+                    candidate = mModel;
                 }
             }
-
-            return mModel;
+            return candidate;
         }
 
     protected:
@@ -38,9 +39,6 @@ class RANSAC
         {
             mModel.run(gen, mMargin);
             auto res = mModel.getResidual();
-
-            std::cout.precision(10);
-            std::cout << res << std::endl;
 
             if(res < mBestModelRes)
             {
@@ -52,7 +50,7 @@ class RANSAC
 
         int mDataNum, mIteration;
         double mMargin, mThreshold;
-        double mBestModelRes=900000, mBestGradient, mBestIntercept;
+        double mBestModelRes=std::numeric_limits<double>::infinity(), mBestGradient, mBestIntercept;
 
         MODEL mModel;
 };
@@ -64,11 +62,14 @@ class Linear
         double mGradient, mIntercept, mResidual;
         int mDataNum;
         std::vector<std::vector<double>> mDatas;
+        std::vector<int> mInliers;
 
     public:
+        Linear() = default;
         Linear(const std::vector<std::vector<double>>& datas, const int& dataNum);
         void run(std::mt19937& gen, const double& margin);
         std::tuple<double,double> computeLinearParameter(const double& x1, const double& y1, const double& x2, const double& y2);
         std::tuple<double, double> getParameter();
         double getResidual();
+        std::vector<int> getInliers();
 };

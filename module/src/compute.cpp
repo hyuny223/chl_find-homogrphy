@@ -53,7 +53,6 @@ Eigen::MatrixXd compute2D(const Eigen::MatrixXd& C, const Eigen::MatrixXd& point
     auto result = point2D.array().colwise() / point2D.col(2).array();
 
     return result;
-
 }
 
 void computeRMSE(const std::vector<std::vector<double>> values, const Eigen::MatrixXd& gt, const Eigen::MatrixXd& pred)
@@ -73,5 +72,5 @@ void computeRMSE(const std::vector<std::vector<double>> values, const Eigen::Mat
     }
 
     std::cout << "RMSE of GT H Matrix : " << gtError / len << std::endl;
-    std::cout << "RMSE of Predicted H Matrix : " << predError / len << std::endl;
+    std::cout << "RMSE of Predicted H Matrix : " << predError / len<< std::endl;
 }

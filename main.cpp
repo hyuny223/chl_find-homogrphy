@@ -32,17 +32,23 @@ int main(int argc, char** argv)
 
     std::size_t len = values.size();
 
-    // Linear model(values, len);
-    // RANSAC<Linear> ransac(model, 100, 10, 0.05);
-    // model = ransac.run();
+    Linear model(values, len);
+    RANSAC<Linear> ransac(model, 300, 200, 4000);
+    model = ransac.run();
+    auto inliers_idx = model.getInliers();
+    std::vector<std::vector<double>> inliers;
+    inliers.reserve(len);
+    for(const int& i:inliers_idx)
+    {
+        inliers.emplace_back(values.at(i));
+    }
 
-    Eigen::MatrixXd C(3,4), point3D(len,4);
-    computeSVD(values, len, C, point3D);
+    Eigen::MatrixXd C(3,4), point3D(inliers.size(),4);
+    computeSVD(inliers, inliers.size(), C, point3D);
 
     Eigen::MatrixXd pred = compute2D(C, point3D);
     Eigen::MatrixXd gt = compute2D(out, point3D);
 
-    computeRMSE(values, gt, pred);
-    visualizer(values, gt, pred);
-
+    computeRMSE(inliers, gt, pred);
+    visualizer(inliers, gt, pred);
 }
