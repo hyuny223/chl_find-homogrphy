@@ -51,4 +51,5 @@ int main(int argc, char** argv)
 
     computeRMSE(inliers, gt, pred);
     visualizer(inliers, gt, pred);
+
 }
