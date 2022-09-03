@@ -40,12 +40,12 @@ pred_error /= len;
 ```
 
 Before RANSAC  
-===
+---
 RMSE of GT H Matrix : 63.7616  
 RMSE of Predicted H Matrix : 63.55  
 
 After RANSAC  
-===
+---
 RMSE of GT H Matrix : 61.3398  
 RMSE of Predicted H Matrix : 44.8673
 
@@ -55,11 +55,11 @@ Red : Given H matrix
 Green : Predicted H matrix  
 
 Before RANSAC
-===
+---
 ![Screenshot from 2022-09-03 17-28-33](https://user-images.githubusercontent.com/58837749/188262775-a5cd2a7f-e6f8-4206-b687-8cf6918f08b3.png)  
 
 After RANSAC
-===
+---
 ![Screenshot from 2022-09-03 17-26-21](https://user-images.githubusercontent.com/58837749/188262800-008927d1-9755-43f5-af8e-580ec3fc69cb.png)
 
 
