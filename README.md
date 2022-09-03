@@ -50,7 +50,7 @@ RMSE of GT H Matrix : 61.3398
 RMSE of Predicted H Matrix : 44.8673
 
 ## 2. Visualization
-White : GT  
+Black : GT 2D Points  
 Red : Given H matrix  
 Green : Predicted H matrix  
 
